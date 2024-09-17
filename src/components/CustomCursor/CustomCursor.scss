@@ -1,0 +1,12 @@
+.custom-cursor {
+  position: fixed;
+  width: 3.125rem; /* Adjust size as needed */
+  height: 3.125rem;
+  background-image: url("./../../assets/icons/enterprise-icon.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  pointer-events: none; /* Ensures the cursor doesn't block interactions */
+  transform: translate(-50%, -50%); /* Centers the cursor image */
+  z-index: 9999; /* Ensures it appears above other elements */
+  transition: transform 0.1s ease, opacity 0.1s ease; /* Smooth movement */
+}
