@@ -1,0 +1,141 @@
+html {
+    background: black;
+    height: 100%;
+  }
+  
+  body {
+    background: black;
+    font-family: 'Roboto', sans-serif;
+    text-transform: uppercase;
+  }
+  
+  .cards-display {
+    display: flex;
+    flex-direction: column;
+  
+    &__header {
+      float: left;
+      width: 200px;
+      height: 100px;
+    }
+  
+    &__title {
+      background: black;
+      color: #FFFF99;
+      float: right;
+      line-height: 2;
+      font-size: 20px;
+      margin-right: 40px;
+      padding-left: 5px;
+      padding-right: 5px;
+      text-transform: uppercase;
+    }
+  
+    &__panel-top {
+      background: #FFCC66;
+      width: 95%;
+      height: 40px;
+      border-top-left-radius: 90px;
+      border-top-right-radius: 40px;
+      border-bottom-right-radius: 40px;
+      margin-top: 100px;
+      overflow: hidden;
+    }
+  
+    &__panel-side {
+      align-items: flex-end;
+      width: 170px;
+      height: 40px;
+      float: left;
+      padding-left: 5px;
+      font-weight: bold;
+      color: black;
+      border-top: 3px solid black;
+  
+      &--small {
+        background: #FFCC66;
+        height: 30px;
+      }
+  
+      &--bridge {
+        background: #CCDDFF;
+      }
+  
+      &--engineering {
+        background: #FF9966;
+      }
+  
+      &--transporter-room {
+        background: #BB6622;
+      }
+  
+      &--holodeck {
+        background: #FFFF99;
+      }
+  
+      &--time {
+        background: #FFCC66;
+        margin-top: 50px;
+      }
+  
+      &--ship {
+        background: #FFCC66;
+        width: 95%;
+        height: 40px;
+        border-bottom-left-radius: 90px;
+        border-top-right-radius: 40px;
+        border-bottom-right-radius: 40px;
+      }
+    }
+  
+    &__ship-title {
+      font-weight: bold;
+      color: black;
+    }
+  
+    &__panel-main {
+      position: absolute;
+      background: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSPCWtt-pf1jQyq6t4yQXzOcvf0CC9RY7AxwcO9SolGjmGmteBu") center no-repeat, black;
+      background-size: inherit;
+      width: 650px;
+      height: 290px;
+      top: 235px;
+      left: 260px;
+      border-top-left-radius: 20px;
+      border-bottom-left-radius: 20px;
+  
+      p {
+        position: relative;
+        color: yellow;
+        bottom: -250px;
+        left: 10px;
+      }
+    }
+  
+    &__current-time {
+      color: yellow;
+    }
+  
+    &__title-blink {
+      animation: blink 1s steps(5, start) infinite;
+      -webkit-animation: blink 1s steps(5, start) infinite;
+    }
+  }
+  
+  @keyframes blink {
+    to {
+      visibility: hidden;
+    }
+  }
+  
+  @-webkit-keyframes blink {
+    to {
+      visibility: hidden;
+    }
+  }
+  
+  .panel_buttons:hover {
+    cursor: pointer;
+    opacity: .8;
+  }
+  
