@@ -1,0 +1,18 @@
+@import "./../../assets/styles/global.scss";
+
+h2 {
+  color: #2788da;
+  text-shadow: 1px 1px white;
+}
+
+.header {
+  @include flexbox(column, space-between, center);
+  &-img {
+    min-width: 18.75rem;
+    max-width: 50%;
+    padding-top: 10px;
+  }
+  &-text {
+    text-align: center;
+  }
+}
