@@ -39,7 +39,7 @@ const TextDisplay = () => {
       </div>
 
       <div className="lcars__quote-container">
-        <p className="lcars__title">Captain's log</p>
+        <p className="lcars__title">{"Captain's log"}</p>
         <p className="lcars__quote">MBTI intro</p>
         <p className="lcars__author"></p>
         <a href="" target="_blank" className="lcars__link"></a>
