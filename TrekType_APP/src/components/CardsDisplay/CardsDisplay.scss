@@ -1,141 +1,105 @@
-html {
-    background: black;
-    height: 100%;
+@import "./../../assets/styles/global.scss";
+
+.lcars {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* LCARS Panel Styles */
+.lcars-panel {
+  width: 95%;
+  margin: 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  &--top,
+  &--bottom {
+    background: #ffcc66;
+    height: 2.5rem;
+    padding: 0.625rem;
   }
-  
-  body {
-    background: black;
-    font-family: 'Roboto', sans-serif;
-    text-transform: uppercase;
+  &--top {
+    border-radius: 2.5rem 2.5rem 0 0;
   }
-  
-  .cards-display {
-    display: flex;
-    flex-direction: column;
-  
-    &__header {
-      float: left;
-      width: 200px;
-      height: 100px;
-    }
-  
-    &__title {
-      background: black;
-      color: #FFFF99;
-      float: right;
-      line-height: 2;
-      font-size: 20px;
-      margin-right: 40px;
-      padding-left: 5px;
-      padding-right: 5px;
-      text-transform: uppercase;
-    }
-  
-    &__panel-top {
-      background: #FFCC66;
-      width: 95%;
-      height: 40px;
-      border-top-left-radius: 90px;
-      border-top-right-radius: 40px;
-      border-bottom-right-radius: 40px;
-      margin-top: 100px;
-      overflow: hidden;
-    }
-  
-    &__panel-side {
-      align-items: flex-end;
-      width: 170px;
-      height: 40px;
-      float: left;
-      padding-left: 5px;
-      font-weight: bold;
-      color: black;
-      border-top: 3px solid black;
-  
-      &--small {
-        background: #FFCC66;
-        height: 30px;
-      }
-  
-      &--bridge {
-        background: #CCDDFF;
-      }
-  
-      &--engineering {
-        background: #FF9966;
-      }
-  
-      &--transporter-room {
-        background: #BB6622;
-      }
-  
-      &--holodeck {
-        background: #FFFF99;
-      }
-  
-      &--time {
-        background: #FFCC66;
-        margin-top: 50px;
-      }
-  
-      &--ship {
-        background: #FFCC66;
-        width: 95%;
-        height: 40px;
-        border-bottom-left-radius: 90px;
-        border-top-right-radius: 40px;
-        border-bottom-right-radius: 40px;
-      }
-    }
-  
-    &__ship-title {
-      font-weight: bold;
-      color: black;
-    }
-  
-    &__panel-main {
-      position: absolute;
-      background: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSPCWtt-pf1jQyq6t4yQXzOcvf0CC9RY7AxwcO9SolGjmGmteBu") center no-repeat, black;
-      background-size: inherit;
-      width: 650px;
-      height: 290px;
-      top: 235px;
-      left: 260px;
-      border-top-left-radius: 20px;
-      border-bottom-left-radius: 20px;
-  
-      p {
-        position: relative;
-        color: yellow;
-        bottom: -250px;
-        left: 10px;
-      }
-    }
-  
-    &__current-time {
-      color: yellow;
-    }
-  
-    &__title-blink {
-      animation: blink 1s steps(5, start) infinite;
-      -webkit-animation: blink 1s steps(5, start) infinite;
-    }
+  &--bottom {
+    border-radius: 0 0 2.5rem 2.5rem;
   }
-  
-  @keyframes blink {
-    to {
-      visibility: hidden;
-    }
+  &__title {
+    color: $black;
   }
-  
-  @-webkit-keyframes blink {
-    to {
-      visibility: hidden;
-    }
+}
+
+.lcars-panel--side {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background-color: #ffcc66;
+  width: 180px;
+}
+
+.lcars-panel--main {
+  background-size: inherit;
+  width: 650px;
+  height: 290px;
+  border-radius: 20px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-end;
+  padding-left: 10px;
+}
+
+.lcars-panel__title {
+  color: #ffff99;
+  font-size: 20px;
+}
+
+.lcars-panel__time {
+  color: yellow;
+  margin-bottom: 10px;
+}
+
+.lcars-panel__blink {
+  animation: blink 1s steps(5, start) infinite;
+  -webkit-animation: blink 1s steps(5, start) infinite;
+}
+
+@keyframes blink {
+  to {
+    visibility: hidden;
   }
-  
-  .panel_buttons:hover {
-    cursor: pointer;
-    opacity: .8;
-  }
-  
+}
+
+/* Button styles for side panel */
+.lcars-panel__button {
+  color: black;
+  font-weight: bold;
+  padding: 10px;
+  border-top: 3px solid black;
+  cursor: pointer;
+}
+
+.lcars-panel__button--bridge {
+  background-color: #ccddff;
+}
+
+.lcars-panel__button--engineering {
+  background-color: #ff9966;
+}
+
+.lcars-panel__button--transporter {
+  background-color: #bb6622;
+}
+
+.lcars-panel__button--holodeck {
+  background-color: #ffff99;
+}
+
+.lcars-panel__button--time {
+  background-color: #ffcc66;
+  margin-top: 50px;
+}
+
+.lcars-panel__button:hover {
+  opacity: 0.8;
+}

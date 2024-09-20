@@ -2,7 +2,7 @@ import "./TextDisplay.scss";
 
 const TextDisplay = () => {
   return (
-    <div className="lcars">
+    <div className="lcars-test">
       <div className="lcars__frame-top">
         <div className="lcars__top lcars__top--1"></div>
         <div className="lcars__top lcars__top--2"></div>

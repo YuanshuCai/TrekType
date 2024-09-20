@@ -1,15 +1,20 @@
 import "./App.scss";
 import CustomCursor from "./components/CustomCursor/CustomCursor";
 import Header from "./components/Header/Header";
-import TextDisplay from "./components/TextDisplay/TextDisplay";
-import CardsDisplay from "./components/CardsDisplay/CardsDisplay";
+import MBTIPage from "./pages/MBTIPage/MBTIPage";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { HomePage } from "./pages/HomePage/HomePage";
 function App() {
   return (
     <>
-      <CustomCursor />
-      <Header />
-      <CardsDisplay />
-      <TextDisplay />
+      <Router>
+        <CustomCursor />
+        <Header />
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/mbti/:id" element={<MBTIPage />} />
+        </Routes>
+      </Router>
     </>
   );
 }
