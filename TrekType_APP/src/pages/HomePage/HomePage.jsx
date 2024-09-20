@@ -1,11 +1,9 @@
-import CardsDisplay from "./../../components/CardsDisplay/CardsDisplay";
-import TextDisplay from "./../../components/TextDisplay/TextDisplay";
+import Lcars from "../../components/LCARS/LCARS";
 
 export function HomePage() {
   return (
     <>
-      <CardsDisplay />
-      <TextDisplay />
+      <Lcars />
     </>
   );
 }
