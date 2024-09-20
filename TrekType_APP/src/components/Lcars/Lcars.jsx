@@ -1,24 +1,20 @@
 import React, { useState } from "react";
-import Carousel from "./../Carousel/Carousel"; // Import your Carousel component
-import CardsDisplay from "./../CardsDisplay/CardsDisplay"; // Import your CardsDisplay component
+import Carousel from "./../Carousel/Carousel";
+import CardsListMBTI from "./../CardsListMBTI/CardsListMBTI";
 import "./Lcars.scss";
 
 const Lcars = () => {
-  // State to manage the displayed component
+  //manage the displayed component in Main
   const [activeComponent, setActiveComponent] = useState("carousel");
-
-  // Handler for changing components
   const handleNavClick = (component) => {
     setActiveComponent(component);
   };
-
-  // Render the active component in the main section
   const renderContent = () => {
     switch (activeComponent) {
       case "carousel":
         return <Carousel />;
       case "cardsDisplay":
-        return <CardsDisplay />;
+        return <CardsListMBTI />;
       case "underConstruction":
         return (
           <div>
@@ -55,29 +51,23 @@ const Lcars = () => {
           <div className="data-cascade-button-group">
             <div className="cascade-wrapper">{/* Data Cascade Rows */}</div>
             <nav id="nav-standard">
-              <a href="#" id="b-one" onClick={() => handleNavClick("carousel")}>
-                01
+              <a id="b-one" onClick={() => handleNavClick("carousel")}>
+                Engineering
+              </a>
+              <a id="b-two" onClick={() => handleNavClick("cardsDisplay")}>
+                Ten Forward
               </a>
               <a
-                href="#"
-                id="b-two"
-                onClick={() => handleNavClick("cardsDisplay")}
-              >
-                02
-              </a>
-              <a
-                href="#"
                 id="b-three"
                 onClick={() => handleNavClick("underConstruction")}
               >
-                03
+                Transporter
               </a>
               <a
-                href="#"
                 id="b-four"
                 onClick={() => handleNavClick("underConstruction")}
               >
-                04
+                Holodeck
               </a>
             </nav>
           </div>
