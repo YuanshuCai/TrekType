@@ -1,27 +1,41 @@
+import Carousel from "../Carousel/Carousel";
 import "./CardsDisplay.scss";
 
 const CardsDisplay = () => {
-    return (
-        <div class="cards-display">
-            <div class="cards-display__panel-top">
-                <label class="cards-display__title">
-                    <span class="cards-display__title-blink">&#10022;</span> LCARS Database
-                </label>
-            </div>
-            <div class="cards-display__panel-side cards-display__panel-side--small"></div>
-            <div class="cards-display__panel-side cards-display__panel-side--bridge">Bridge</div>
-            <div class="cards-display__panel-side cards-display__panel-side--engineering">Engineering</div>
-            <div class="cards-display__panel-side cards-display__panel-side--transporter-room">Transporter Room</div>
-            <div class="cards-display__panel-side cards-display__panel-side--holodeck">Holodeck</div>
-            <div class="cards-display__panel-side cards-display__panel-side--time">Time</div>
-            <div class="cards-display__panel-side cards-display__panel-side--ship">
-                <label class="cards-display__ship-title">U.s.s blackstar NCC-1978</label>
-            </div>
-            <div class="cards-display__panel-main">
-                <p class="cards-display__current-time">Current time: </p>
-            </div>
+  return (
+    <>
+      <div className="lcars">
+        <div className="lcars-panel lcars-panel--top">
+          <label className="lcars-panel__title">
+            <span className="lcars-panel__blink">LCARS Database</span>
+          </label>
         </div>
-    )
-}
+        <div>
+          <div className="lcars-panel lcars-panel--side">
+            <div className="lcars-panel__button lcars-panel__button--bridge">
+              Bridge
+            </div>
+            <div className="lcars-panel__button lcars-panel__button--engineering">
+              Engineering
+            </div>
+            <div className="lcars-panel__button lcars-panel__button--transporter">
+              Transporter Room
+            </div>
+            <div className="lcars-panel__button lcars-panel__button--holodeck">
+              Holodeck
+            </div>
+          </div>
+          <div className="lcars-panel lcars-panel--main">
+            <Carousel />
+          </div>
+        </div>
+
+        <div className="lcars-panel lcars-panel--bottom">
+          <label className="lcars-panel__title">U.S.S Blackstar NCC-1978</label>
+        </div>
+      </div>
+    </>
+  );
+};
 
 export default CardsDisplay;
