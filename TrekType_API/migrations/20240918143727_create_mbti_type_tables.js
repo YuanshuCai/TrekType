@@ -4,16 +4,17 @@
  */
 export function up(knex) {
   return knex.schema.createTable("mbti_types", (table) => {
-    table.increments("type_id").primary();
+    table.increments("id").primary();
+    table.integer("type_id").notNullable();
     table.string("type_name").notNullable();
     table.text("description").notNullable();
-    table.string("type_character_id").notNullable();
-    table.string("type_strength").notNullable();
-    table.string("type_shortcoming").notNullable();
-    table.timestamp("created_at").defaultTo(knex.fn.now());
-    table
-      .timestamp("updated_at")
-      .defaultTo(knex.raw("CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP"));
+    table.integer("character_id").notNullable();
+    table.text("type_strength").notNullable();
+    table.text("type_shortcoming").notNullable();
+    table.string("dominant").notNullable();
+    table.string("auxiliary").notNullable();
+    table.string("tertiary").notNullable();
+    table.string("inferior").notNullable();
   });
 }
 
