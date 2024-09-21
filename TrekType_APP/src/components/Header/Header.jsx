@@ -15,8 +15,6 @@ const Header = () => {
           alt="LCARS"
         />
       </div>
-
-      <h2 className="header-text">A MBTI Voyage</h2>
     </div>
   );
 };

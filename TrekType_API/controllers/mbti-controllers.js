@@ -60,3 +60,71 @@ export const getSinglePersonality = (req, res) => {
       res.status(500).send("Failed to fetch personality type");
     });
 };
+
+export const findMBTIType = (req, res) => {
+  const { dominant, auxiliary, tertiary, inferior } = req.body; // Expect cognitive functions from the front-end
+
+  if (!dominant || !auxiliary || !tertiary || !inferior) {
+    return res.status(400).send("Cognitive functions missing in request");
+  }
+
+  // Query mbti_types table to find the matching cognitive functions
+  db.select("*")
+    .from("mbti_types")
+    .where({
+      dominant: dominant,
+      auxiliary: auxiliary,
+      tertiary: tertiary,
+      inferior: inferior,
+    })
+    .first() // Get the first matching type
+    .then((row) => {
+      if (row) {
+        res.status(200).json(row);
+      } else {
+        res.status(404).send("No matching MBTI type found");
+      }
+    })
+    .catch((error) => {
+      console.error(
+        "Error querying for MBTI type based on cognitive functions:",
+        error
+      );
+      res.status(500).send("Failed to find MBTI type");
+    });
+};
+export const getCharacterMBTI = (req, res) => {
+  const characterId = parseInt(req.params.id, 10); // Get the character's ID from the route
+
+  if (isNaN(characterId)) {
+    return res.status(400).send("Character ID must be a valid number");
+  }
+
+  // Perform a SQL join between star_trek_characters and mbti_types based on type_id
+  db.select(
+    "star_trek_characters.character_name",
+    "star_trek_characters.image_url",
+    "star_trek_characters.description as character_description",
+    "mbti_types.*"
+  )
+    .from("star_trek_characters")
+    .join(
+      "mbti_types",
+      "star_trek_characters.type_id",
+      "=",
+      "mbti_types.type_id"
+    ) // Join based on type_id
+    .where("star_trek_characters.character_id", characterId) // Use character_id for filtering
+    .first() // Get the first matching result
+    .then((row) => {
+      if (row) {
+        res.status(200).json(row); // Return the character and MBTI info
+      } else {
+        res.status(404).send("Character not found");
+      }
+    })
+    .catch((error) => {
+      console.error("Error fetching character's MBTI type:", error);
+      res.status(500).send("Failed to fetch character's MBTI type");
+    });
+};
