@@ -1,32 +1,41 @@
 import React, { useState } from "react";
 import Carousel from "./../Carousel/Carousel";
 import CardsListMBTI from "./../CardsListMBTI/CardsListMBTI";
-import "./Lcars.scss";
 import MBTIQuestions from "../MBTIQuestions/MBTIQuestions";
+import TypeDetails from "../TypeDetails/TypeDetails"; // Make sure this is imported correctly
+import "./Lcars.scss";
 
 const Lcars = () => {
-  //manage the displayed component in Main
+  // Manage the displayed component in Main
+  const [mbtiType, setMBTIType] = useState(null);
   const [activeComponent, setActiveComponent] = useState("carousel");
+
+  // Set MBTI type and switch to typeDetail component
+  const handleSetMBTIType = (typeId) => {
+    setMBTIType(typeId); // Update MBTI type
+    setActiveComponent("typeDetail"); // Switch to the typeDetail view
+  };
+
   const handleNavClick = (component) => {
     setActiveComponent(component);
   };
+
   const renderContent = () => {
     switch (activeComponent) {
       case "carousel":
-        return <Carousel />;
+        return <Carousel setMBTIType={handleSetMBTIType} />;
       case "cardsDisplay":
-        return <CardsListMBTI />;
+        return <CardsListMBTI setMBTIType={handleSetMBTIType} />;
       case "mbtiQuestions":
         return <MBTIQuestions />;
-      case "underConstruction":
-        return (
-          <div>
-            <h1>Under Construction</h1>
-            <p>This section is still being worked on.</p>
-          </div>
+      case "typeDetail":
+        return mbtiType ? (
+          <TypeDetails mbtiType={mbtiType} />
+        ) : (
+          <p>Please select an MBTI type.</p>
         );
       default:
-        return <Carousel />;
+        return <Carousel setMBTIType={handleSetMBTIType} />;
     }
   };
 
@@ -60,10 +69,7 @@ const Lcars = () => {
               <a id="b-two" onClick={() => handleNavClick("cardsDisplay")}>
                 Engineering
               </a>
-              <a
-                id="b-three"
-                onClick={() => handleNavClick("underConstruction")}
-              >
+              <a id="b-three" onClick={() => handleNavClick("typeDetail")}>
                 Transporter
               </a>
               <a id="b-four" onClick={() => handleNavClick("mbtiQuestions")}>

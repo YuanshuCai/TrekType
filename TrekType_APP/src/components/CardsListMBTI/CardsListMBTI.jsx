@@ -3,7 +3,7 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import "./CardsListMBTI.scss";
 
-function CardsListMBTI() {
+function CardsListMBTI({ setMBTIType }) {
   const [mbtiTypes, setMbtiTypes] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -48,9 +48,10 @@ function CardsListMBTI() {
     <div className="cards-list">
       {mbtiTypes.map((type) => (
         <Link
-          to={`/mbti/${type.type_id}`}
+          to="#"
           key={type.type_id}
-          className={`card ${getRandomColor()}`} // Apply random color class
+          className={`card ${getRandomColor()}`}
+          onClick={() => setMBTIType(type.type_id)} // Update selected MBTI type
         >
           <h3 className="card-text">{type.type_name}</h3>
         </Link>
