@@ -52,10 +52,10 @@ const Lcars = () => {
             <div className="cascade-wrapper">{/* Data Cascade Rows */}</div>
             <nav id="nav-standard">
               <a id="b-one" onClick={() => handleNavClick("carousel")}>
-                Engineering
+                Ten Forward
               </a>
               <a id="b-two" onClick={() => handleNavClick("cardsDisplay")}>
-                Ten Forward
+                Engineering
               </a>
               <a
                 id="b-three"

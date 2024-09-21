@@ -1,54 +1,66 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Autoplay from "embla-carousel-autoplay";
 import useEmblaCarousel from "embla-carousel-react";
+import { useNavigate } from "react-router-dom"; // Import useNavigate
 import "./Carousel.scss";
-import imgCommanderData from "./../../assets/images/commander-data-pixel.png";
-import imgJeanLuc from "./../../assets/images/jean-luc-pixel.png";
-import imgRiker from "./../../assets/images/william-riker-pixel.png";
 
 const Carousel = () => {
-  const carouselData = [
-    { id: 1, image: imgCommanderData, text: "INTP" },
-    { id: 2, image: imgJeanLuc, text: "INSJ" },
-    { id: 3, image: imgRiker, text: "ENTJ" },
-    { id: 4, image: "image4.jpg", text: "Card 4" },
-    { id: 5, image: "image5.jpg", text: "Card 5" },
-    { id: 6, image: "image6.jpg", text: "Card 6" },
-    { id: 7, image: "image7.jpg", text: "Card 7" },
-    { id: 8, image: "image8.jpg", text: "Card 8" },
-    { id: 9, image: "image9.jpg", text: "Card 9" },
-    { id: 10, image: "image10.jpg", text: "Card 10" },
-    { id: 11, image: "image11.jpg", text: "Card 11" },
-    { id: 12, image: "image12.jpg", text: "Card 12" },
-    { id: 13, image: "image13.jpg", text: "Card 13" },
-    { id: 14, image: "image14.jpg", text: "Card 14" },
-    { id: 15, image: "image15.jpg", text: "Card 15" },
-    { id: 16, image: "image16.jpg", text: "Card 16" },
-  ];
+  const [carouselData, setCarouselData] = useState([]);
+  const navigate = useNavigate(); // Create a navigate function
 
-  const options = {}; // Your Embla options here
+  // Fetch data from the API
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(
+          "http://localhost:8080/personality-types/all/mbti"
+        ); // Update with the correct API endpoint
+        const data = await response.json();
+        setCarouselData(data); // Assuming data is an array of character objects
+      } catch (error) {
+        console.error("Error fetching carousel data:", error);
+      }
+    };
+
+    fetchData();
+  }, []); // Fetch data only when the component mounts
+
+  const handleCardClick = (id) => {
+    navigate(`/mbti/${id}`); // Navigate to the MBTI page with the id
+  };
+
+  const options = { loop: true }; // Your Embla options here
   const [emblaRef] = useEmblaCarousel(options, [Autoplay()]);
 
   return (
     <section className="embla">
       <div className="embla__viewport" ref={emblaRef}>
         <div className="embla__container">
-          {carouselData.map((slide) => (
-            <div className="embla__slide" key={slide.id}>
-              <div className="embla__slide__inner">
-                <div className="embla__slide__front">
-                  <img
-                    src={slide.image}
-                    alt={slide.text}
-                    className="embla__slide__image"
-                  />
-                </div>
-                <div className="embla__slide__back">
-                  <div className="embla__slide__text">{slide.text}</div>
+          {carouselData.length > 0 ? (
+            carouselData.map((slide) => (
+              <div
+                className="embla__slide"
+                key={slide.character_id}
+                onClick={() => handleCardClick(slide.type_id)} // Add onClick event
+                style={{ cursor: "pointer" }} // Change cursor to pointer for clickable effect
+              >
+                <div className="embla__slide__inner">
+                  <div className="embla__slide__front">
+                    <img
+                      src={slide.image_url}
+                      alt={slide.character_name}
+                      className="embla__slide__image"
+                    />
+                  </div>
+                  <div className="embla__slide__back">
+                    <div className="embla__slide__text">{slide.type_name}</div>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            ))
+          ) : (
+            <p>Loading...</p>
+          )}
         </div>
       </div>
     </section>
