@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Carousel from "./../Carousel/Carousel";
 import CardsListMBTI from "./../CardsListMBTI/CardsListMBTI";
 import "./Lcars.scss";
+import MBTIQuestions from "../MBTIQuestions/MBTIQuestions";
 
 const Lcars = () => {
   //manage the displayed component in Main
@@ -15,6 +16,8 @@ const Lcars = () => {
         return <Carousel />;
       case "cardsDisplay":
         return <CardsListMBTI />;
+      case "mbtiQuestions":
+        return <MBTIQuestions />;
       case "underConstruction":
         return (
           <div>
@@ -63,10 +66,7 @@ const Lcars = () => {
               >
                 Transporter
               </a>
-              <a
-                id="b-four"
-                onClick={() => handleNavClick("underConstruction")}
-              >
+              <a id="b-four" onClick={() => handleNavClick("mbtiQuestions")}>
                 Holodeck
               </a>
             </nav>

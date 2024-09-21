@@ -1,0 +1,60 @@
+.question-item {
+  padding: 10px;
+  margin-bottom: 15px;
+  background-color: #fff;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease;
+}
+
+.question-item.answered {
+  background-color: #d4edda; /* Light green for answered questions */
+}
+
+.button-group {
+  display: flex;
+  justify-content: space-between;
+}
+
+.answer-button {
+  padding: 10px 15px;
+  margin: 5px;
+  border: none;
+  background-color: #ddd;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+  font-size: 14px;
+}
+
+.answer-button:hover {
+  background-color: #bbb;
+}
+
+.answer-button.selected {
+  background-color: #007bff;
+  color: #fff;
+}
+
+.error-message {
+  color: red;
+  font-size: 14px;
+  margin-top: 10px;
+}
+
+.submit-button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: #28a745;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.submit-button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
