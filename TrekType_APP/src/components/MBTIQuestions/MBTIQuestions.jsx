@@ -52,7 +52,9 @@ const MBTIQuestions = () => {
         {questions.length > 0 ? (
           questions.map((question) => (
             <li key={question.id} className="question-item">
-              <p>{question.text}</p>
+              <p>
+                🚀{question.id} . {question.text}
+              </p>
               <div className="button-group">
                 <button
                   className={`answer-button ${
