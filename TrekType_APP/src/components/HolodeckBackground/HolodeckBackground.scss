@@ -1,0 +1,37 @@
+@import "./../../assets/styles/global.scss";
+.bg,
+.bg2 {
+  width: 200vw;
+  height: 100vh;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  z-index: -1; /* Ensure background stays behind content */
+  /* background: linear-gradient(90deg, $col3, $col4, $col3 50%, $col4, $col3); */
+  background-color: transparent;
+  background-image: linear-gradient($star-trek-orange 3px, transparent 2px),
+    linear-gradient(90deg, $star-trek-orange 2px, transparent 2px),
+    linear-gradient(rgba(255, 255, 255, 0.3) 1px, transparent 0.5px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.3) 1px, transparent 0.5px);
+  background-size: 5rem 5rem, 5rem 5rem, 2rem 2rem, 2rem 2rem;
+  background-position: -2px -2px, -2px -2px, -1px -1px, -1px -1px;
+}
+
+.bg {
+  animation: bg 60s infinite linear;
+  filter: blur(2px);
+}
+
+.bg2 {
+  animation: bg 40s infinite linear;
+  filter: blur(1px);
+}
+
+@keyframes bg {
+  0% {
+    left: 0;
+  }
+  100% {
+    left: -100vw;
+  }
+}
