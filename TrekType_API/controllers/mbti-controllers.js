@@ -128,3 +128,37 @@ export const getCharacterMBTI = (req, res) => {
       res.status(500).send("Failed to fetch character's MBTI type");
     });
 };
+export const getAllCharactersMBTI = (req, res) => {
+  console.log("Fetching all characters' MBTI types...");
+
+  db.select(
+    "star_trek_characters.character_name",
+    "star_trek_characters.image_url",
+    "star_trek_characters.description as character_description",
+    "mbti_types.type_name",
+    "mbti_types.type_strength",
+    "mbti_types.type_shortcoming",
+    "mbti_types.dominant",
+    "mbti_types.auxiliary",
+    "mbti_types.tertiary",
+    "mbti_types.inferior"
+  )
+    .from("star_trek_characters")
+    .join(
+      "mbti_types",
+      "star_trek_characters.type_id",
+      "=",
+      "mbti_types.type_id"
+    )
+    .then((rows) => {
+      if (rows.length > 0) {
+        res.status(200).json(rows); // Return all characters and their MBTI info
+      } else {
+        res.status(404).send("No characters found");
+      }
+    })
+    .catch((error) => {
+      console.error("Error fetching all characters' MBTI types:", error);
+      res.status(500).send("Failed to fetch characters' MBTI types");
+    });
+};
