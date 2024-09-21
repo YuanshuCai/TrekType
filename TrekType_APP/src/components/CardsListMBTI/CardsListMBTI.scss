@@ -1,26 +1,38 @@
 @import "./../../assets/styles/global.scss";
-/* styles.css */
 .cards-list {
   display: flex;
+  flex-direction: row;
   flex-wrap: wrap;
-  gap: 20px;
-  padding: 20px;
+  gap: 1rem;
+  padding: 1rem;
 }
 
 .card {
-  border: 1px solid #ccc;
-  padding: 20px;
-  border-radius: 8px;
-  width: 200px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s;
+  border-radius: 1rem;
+  text-align: center;
+  color: white;
+  width: 8rem;
+  padding: 2rem;
+  background-color: $stark-trek-light-blue; /* Default color in case no color is applied */
+  transition: transform 0.3s ease;
 }
 
 .card:hover {
   transform: scale(1.05); /* Slight zoom effect on hover */
 }
 
-.card-link {
-  text-decoration: none;
-  color: inherit;
+.star-trek-blue {
+  background-color: $star-trek-blue;
+}
+
+.star-trek-lemon {
+  background-color: $star-trek-lemon;
+}
+
+.star-trek-red {
+  background-color: $star-trek-red;
+}
+
+.star-trek-orange {
+  background-color: $star-trek-orange;
 }
