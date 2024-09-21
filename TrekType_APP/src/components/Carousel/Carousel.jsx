@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from "react";
 import Autoplay from "embla-carousel-autoplay";
 import useEmblaCarousel from "embla-carousel-react";
-import { useNavigate } from "react-router-dom"; // Import useNavigate
 import "./Carousel.scss";
 
-const Carousel = () => {
+function Carousel({ setMBTIType }) {
   const [carouselData, setCarouselData] = useState([]);
-  const navigate = useNavigate(); // Create a navigate function
 
   // Fetch data from the API
   useEffect(() => {
@@ -26,10 +24,10 @@ const Carousel = () => {
   }, []); // Fetch data only when the component mounts
 
   const handleCardClick = (id) => {
-    navigate(`/mbti/${id}`); // Navigate to the MBTI page with the id
+    setMBTIType(id); // Set the MBTI type and switch to TypeDetails
   };
 
-  const options = { loop: true }; // Your Embla options here
+  const options = { loop: true };
   const [emblaRef] = useEmblaCarousel(options, [Autoplay()]);
 
   return (
@@ -41,8 +39,7 @@ const Carousel = () => {
               <div
                 className="embla__slide"
                 key={slide.character_id}
-                onClick={() => handleCardClick(slide.type_id)} // Add onClick event
-                style={{ cursor: "pointer" }} // Change cursor to pointer for clickable effect
+                onClick={() => handleCardClick(slide.type_id)} // Set type and switch to details
               >
                 <div className="embla__slide__inner">
                   <div className="embla__slide__front">
@@ -65,6 +62,6 @@ const Carousel = () => {
       </div>
     </section>
   );
-};
+}
 
 export default Carousel;
