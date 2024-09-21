@@ -1,0 +1,60 @@
+.mbti-questions {
+  padding: 20px;
+  background-color: #f9f9f9;
+}
+
+.mbti-questions h1 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.mbti-questions ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.mbti-questions .question-item {
+  margin-bottom: 15px;
+  padding: 10px;
+  background-color: #fff;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.mbti-questions .button-group {
+  display: flex;
+  justify-content: space-between;
+}
+
+.mbti-questions .answer-button {
+  padding: 10px 15px;
+  margin: 5px;
+  border: none;
+  background-color: #ddd;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+  font-size: 14px;
+}
+
+.mbti-questions .answer-button:hover {
+  background-color: #bbb;
+}
+
+.mbti-questions .answer-button.selected {
+  background-color: #007bff;
+  color: #fff;
+}
+
+.result {
+  margin-top: 20px;
+}
+
+.result h2 {
+  font-size: 18px;
+}
+
+.result ul {
+  list-style-type: none;
+  padding: 0;
+}
