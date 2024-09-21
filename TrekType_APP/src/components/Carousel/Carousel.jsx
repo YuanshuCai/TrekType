@@ -29,7 +29,7 @@ const Carousel = () => {
     navigate(`/mbti/${id}`); // Navigate to the MBTI page with the id
   };
 
-  const options = {}; // Your Embla options here
+  const options = { loop: true }; // Your Embla options here
   const [emblaRef] = useEmblaCarousel(options, [Autoplay()]);
 
   return (
@@ -41,7 +41,7 @@ const Carousel = () => {
               <div
                 className="embla__slide"
                 key={slide.character_id}
-                onClick={() => handleCardClick(slide.character_id)} // Add onClick event
+                onClick={() => handleCardClick(slide.type_id)} // Add onClick event
                 style={{ cursor: "pointer" }} // Change cursor to pointer for clickable effect
               >
                 <div className="embla__slide__inner">

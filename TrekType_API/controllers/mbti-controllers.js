@@ -129,19 +129,11 @@ export const getCharacterMBTI = (req, res) => {
     });
 };
 export const getAllCharactersMBTI = (req, res) => {
-  console.log("Fetching all characters' MBTI types...");
-
   db.select(
     "star_trek_characters.character_name",
     "star_trek_characters.image_url",
     "star_trek_characters.description as character_description",
-    "mbti_types.type_name",
-    "mbti_types.type_strength",
-    "mbti_types.type_shortcoming",
-    "mbti_types.dominant",
-    "mbti_types.auxiliary",
-    "mbti_types.tertiary",
-    "mbti_types.inferior"
+    "mbti_types.*"
   )
     .from("star_trek_characters")
     .join(
