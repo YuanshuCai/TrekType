@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./MBTIQuestions.scss";
 
 const MBTIQuestions = () => {
@@ -14,6 +15,10 @@ const MBTIQuestions = () => {
     Te: 0,
     Si: 0,
   }); // State to store the cumulative function scores
+  const [allAnswered, setAllAnswered] = useState(false); // State to track if all questions are answered
+  const [error, setError] = useState(""); // State to display error message
+
+  const navigate = useNavigate(); // To navigate to the ResultPage
 
   // Fetch data from the API
   useEffect(() => {
@@ -30,6 +35,14 @@ const MBTIQuestions = () => {
     fetchData();
   }, []); // Fetch data only when the component mounts
 
+  // Check if all questions are answered
+  useEffect(() => {
+    setAllAnswered(
+      questions.length > 0 &&
+        Object.keys(selectedAnswers).length === questions.length
+    );
+  }, [selectedAnswers, questions]);
+
   // Function to handle button clicks
   const handleAnswerClick = (questionId, func, value) => {
     // Update selected answer for the question
@@ -45,13 +58,28 @@ const MBTIQuestions = () => {
     }));
   };
 
+  // Handle form submission and navigate to the result page
+  const handleSubmit = () => {
+    if (!allAnswered) {
+      setError("Please answer all questions before submitting.");
+      return;
+    }
+    setError(""); // Clear error if all questions are answered
+    navigate("/result", { state: { functionScores } }); // Pass the functionScores as state to the ResultPage
+  };
+
   return (
     <div className="mbti-questions">
       <h1>MBTI Questions</h1>
       <ul>
         {questions.length > 0 ? (
           questions.map((question) => (
-            <li key={question.id} className="question-item">
+            <li
+              key={question.id}
+              className={`question-item ${
+                selectedAnswers[question.id] !== undefined ? "answered" : ""
+              }`}
+            >
               <p>
                 🚀{question.id} . {question.text}
               </p>
@@ -113,6 +141,17 @@ const MBTIQuestions = () => {
           <p>Loading questions...</p>
         )}
       </ul>
+
+      {/* Display error message if any */}
+      {error && <p className="error-message">{error}</p>}
+
+      <button
+        className="submit-button"
+        onClick={handleSubmit}
+        disabled={!allAnswered} // Disable the button if not all questions are answered
+      >
+        Submit
+      </button>
 
       <div className="result">
         <h2>Function Scores</h2>

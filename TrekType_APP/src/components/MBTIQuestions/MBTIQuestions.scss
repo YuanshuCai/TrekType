@@ -1,32 +1,22 @@
-.mbti-questions {
-  padding: 20px;
-  background-color: #f9f9f9;
-}
-
-.mbti-questions h1 {
-  font-size: 24px;
-  margin-bottom: 20px;
-}
-
-.mbti-questions ul {
-  list-style-type: none;
-  padding: 0;
-}
-
-.mbti-questions .question-item {
-  margin-bottom: 15px;
+.question-item {
   padding: 10px;
+  margin-bottom: 15px;
   background-color: #fff;
   border-radius: 4px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease;
 }
 
-.mbti-questions .button-group {
+.question-item.answered {
+  background-color: #d4edda; /* Light green for answered questions */
+}
+
+.button-group {
   display: flex;
   justify-content: space-between;
 }
 
-.mbti-questions .answer-button {
+.answer-button {
   padding: 10px 15px;
   margin: 5px;
   border: none;
@@ -37,24 +27,34 @@
   font-size: 14px;
 }
 
-.mbti-questions .answer-button:hover {
+.answer-button:hover {
   background-color: #bbb;
 }
 
-.mbti-questions .answer-button.selected {
+.answer-button.selected {
   background-color: #007bff;
   color: #fff;
 }
 
-.result {
+.error-message {
+  color: red;
+  font-size: 14px;
+  margin-top: 10px;
+}
+
+.submit-button {
   margin-top: 20px;
+  padding: 10px 20px;
+  background-color: #28a745;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
-.result h2 {
-  font-size: 18px;
-}
-
-.result ul {
-  list-style-type: none;
-  padding: 0;
+.submit-button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
 }
