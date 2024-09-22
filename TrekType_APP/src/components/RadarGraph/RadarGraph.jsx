@@ -9,8 +9,8 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
+import "./RadarGraph.scss";
 
-// Register necessary components from Chart.js
 ChartJS.register(
   RadialLinearScale,
   PointElement,
@@ -34,8 +34,7 @@ const RadarGraph = ({ Ne, Fi, Ti, Se, Ni, Fe, Te, Si }) => {
     ],
     datasets: [
       {
-        label: "MBTI Personality Traits",
-        data: [Ne, Fi, Ti, Se, Ni, Fe, Te, Si], // Use the values passed as props
+        data: [Ne, Fi, Ti, Se, Ni, Fe, Te, Si],
         backgroundColor: "rgba(34, 202, 236, 0.2)",
         borderColor: "rgba(34, 202, 236, 1)",
         borderWidth: 2,
@@ -45,10 +44,12 @@ const RadarGraph = ({ Ne, Fi, Ti, Se, Ni, Fe, Te, Si }) => {
   };
 
   const options = {
+    responsive: true,
+    maintainAspectRatio: false, // Make the chart responsive
     scales: {
       r: {
         beginAtZero: true,
-        max: 100, // Assuming a scale from 0 to 100 for each aspect
+        max: 30, // Assuming a scale from 0 to 100 for each aspect
         ticks: {
           stepSize: 20,
           color: "#444",
@@ -67,9 +68,18 @@ const RadarGraph = ({ Ne, Fi, Ti, Se, Ni, Fe, Te, Si }) => {
         },
       },
     },
+    plugins: {
+      legend: {
+        display: false, // Hide the legend
+      },
+    },
   };
 
-  return <Radar data={data} options={options} />;
+  return (
+    <div className="radar-graph">
+      <Radar data={data} options={options} />
+    </div>
+  );
 };
 
 export default RadarGraph;

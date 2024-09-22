@@ -1,3 +1,4 @@
+@import "./../../assets/styles/global.scss";
 .result {
   //   display: flex;
   //   justify-content: center;
@@ -8,5 +9,19 @@
     background-size: 90%;
     background-position-x: center;
     height: 60rem;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+  }
+  &-display {
+    padding-top: 2rem;
+    display: flex;
+    justify-content: space-between;
+  }
+  &-stats {
+    width: 20rem;
+    height: 20rem;
   }
 }

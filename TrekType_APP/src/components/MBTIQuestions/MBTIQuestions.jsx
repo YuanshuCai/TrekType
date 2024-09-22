@@ -60,14 +60,14 @@ const MBTIQuestions = () => {
 
   // Handle form submission and navigate to the result page
   const handleSubmit = () => {
-    if (!allAnswered) {
-      setError("Please answer all questions before submitting.");
-      return;
-    }
+    // if (!allAnswered) {
+    //   setError("Please answer all questions before submitting.");
+    //   return;
+    // }
     setError(""); // Clear error if all questions are answered
     navigate("/result", { state: { functionScores } }); // Pass the functionScores as state to the ResultPage
   };
-
+  console.log(functionScores);
   return (
     <div className="mbti-questions">
       <h1>MBTI Questions</h1>
@@ -141,18 +141,16 @@ const MBTIQuestions = () => {
           <p>Loading questions...</p>
         )}
       </ul>
-
       {/* Display error message if any */}
       {error && <p className="error-message">{error}</p>}
 
       <button
         className="submit-button"
         onClick={handleSubmit}
-        disabled={!allAnswered} // Disable the button if not all questions are answered
+        // disabled={!allAnswered} // Disable the button if not all questions are answered
       >
         Submit
       </button>
-
       <div className="result">
         <h2>Function Scores</h2>
         <ul>
