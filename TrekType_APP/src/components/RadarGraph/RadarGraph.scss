@@ -1,0 +1,24 @@
+.radar-graph {
+  width: 100%; // Make the width responsive
+  height: 100%; // Make the height responsive
+  background-color: rgba(255, 255, 255, 0.9);
+  padding: 0.25rem;
+
+  canvas {
+    width: 100% !important; // Ensure the chart takes full width
+    height: 100% !important; // Ensure the chart takes full height
+  }
+
+  .chart-label {
+    color: #444;
+  }
+
+  .chart-grid {
+    color: #ddd;
+  }
+
+  .chart-point-labels {
+    color: #000;
+    font-size: 14px;
+  }
+}
