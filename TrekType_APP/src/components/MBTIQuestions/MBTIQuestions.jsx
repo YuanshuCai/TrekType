@@ -3,8 +3,8 @@ import { useNavigate } from "react-router-dom";
 import "./MBTIQuestions.scss";
 
 const MBTIQuestions = () => {
-  const [questions, setQuestions] = useState([]); // State to store the fetched questions
-  const [selectedAnswers, setSelectedAnswers] = useState({}); // Track selected answers for each question
+  const [questions, setQuestions] = useState([]);
+  const [selectedAnswers, setSelectedAnswers] = useState({});
   const [functionScores, setFunctionScores] = useState({
     Ne: 0,
     Fi: 0,
@@ -15,25 +15,25 @@ const MBTIQuestions = () => {
     Te: 0,
     Si: 0,
   }); // State to store the cumulative function scores
-  const [allAnswered, setAllAnswered] = useState(false); // State to track if all questions are answered
-  const [error, setError] = useState(""); // State to display error message
+  const [allAnswered, setAllAnswered] = useState(false);
+  const [error, setError] = useState("");
 
-  const navigate = useNavigate(); // To navigate to the ResultPage
+  const navigate = useNavigate();
 
   // Fetch data from the API
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("http://localhost:8080/questions"); // Update with the correct API endpoint
+        const response = await fetch("http://localhost:8080/questions");
         const data = await response.json();
-        setQuestions(data); // Assuming data is an array of question objects
+        setQuestions(data);
       } catch (error) {
         console.error("Error fetching questions:", error);
       }
     };
 
     fetchData();
-  }, []); // Fetch data only when the component mounts
+  }, []);
 
   // Check if all questions are answered
   useEffect(() => {
@@ -45,27 +45,25 @@ const MBTIQuestions = () => {
 
   // Function to handle button clicks
   const handleAnswerClick = (questionId, func, value) => {
-    // Update selected answer for the question
     setSelectedAnswers((prev) => ({
       ...prev,
       [questionId]: value,
     }));
 
-    // Update the function score based on the question's function and selected value
     setFunctionScores((prevScores) => ({
       ...prevScores,
-      [func]: prevScores[func] + value - (selectedAnswers[questionId] || 0), // Adjust the previous value if already selected
+      [func]: prevScores[func] + value - (selectedAnswers[questionId] || 0),
     }));
   };
 
   // Handle form submission and navigate to the result page
   const handleSubmit = () => {
-    // if (!allAnswered) {
-    //   setError("Please answer all questions before submitting.");
-    //   return;
-    // }
-    setError(""); // Clear error if all questions are answered
-    navigate("/result", { state: { functionScores } }); // Pass the functionScores as state to the ResultPage
+    if (!allAnswered) {
+      setError("Please answer all questions before submitting.");
+      return;
+    }
+    setError("");
+    navigate("/result", { state: { functionScores } });
   };
   console.log(functionScores);
   return (
@@ -141,26 +139,15 @@ const MBTIQuestions = () => {
           <p>Loading questions...</p>
         )}
       </ul>
-      {/* Display error message if any */}
       {error && <p className="error-message">{error}</p>}
 
       <button
         className="submit-button"
         onClick={handleSubmit}
-        // disabled={!allAnswered} // Disable the button if not all questions are answered
+        disabled={!allAnswered}
       >
         Submit
       </button>
-      <div className="result">
-        <h2>Function Scores</h2>
-        <ul>
-          {Object.keys(functionScores).map((func) => (
-            <li key={func}>
-              {func}: {functionScores[func]}
-            </li>
-          ))}
-        </ul>
-      </div>
     </div>
   );
 };

@@ -154,3 +154,49 @@ export const getAllCharactersMBTI = (req, res) => {
       res.status(500).send("Failed to fetch characters' MBTI types");
     });
 };
+
+export const getPersonalityInfo = (req, res) => {
+  const { type_name } = req.params;
+
+  // Check if type_name is valid
+  if (!type_name || typeof type_name !== "string") {
+    return res.status(400).send("Invalid MBTI type name format");
+  }
+
+  // First, fetch the MBTI type by its type_name
+  db.select("*")
+    .from("mbti_types")
+    .where({ type_name })
+    .first()
+    .then((mbtiType) => {
+      if (!mbtiType) {
+        return res.status(404).send("MBTI type not found");
+      }
+
+      const { type_id } = mbtiType; // Ensure type_id is properly retrieved
+
+      // Now, fetch the associated character using the type_id
+      db.select("*")
+        .from("star_trek_characters")
+        .where({ type_id }) // Use the correct type_id from the mbtiType result
+        .first()
+        .then((character) => {
+          // Combine the mbtiType and character into a single response
+          res.status(200).json({
+            mbtiType,
+            character: character || null, // If no character is found, return null
+          });
+        })
+        .catch((error) => {
+          console.error(
+            `Error fetching character for MBTI type: ${type_name}`,
+            error
+          );
+          res.status(500).send("Failed to fetch character information");
+        });
+    })
+    .catch((error) => {
+      console.error(`Error fetching MBTI type: ${type_name}`, error);
+      res.status(500).send("Failed to fetch MBTI type information");
+    });
+};
