@@ -1,10 +1,8 @@
 @import "./../../assets/styles/global.scss";
 .result {
-  //   display: flex;
-  //   justify-content: center;
   &-content {
     height: 100%;
-    background-image: url("./../../../public/holodeck.png");
+    background-image: url("/holodeck.png");
     background-repeat: no-repeat;
     background-size: 90%;
     background-position-x: center;

@@ -7,7 +7,6 @@ function TypeDetails({ mbtiType }) {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    // Fetch character details based on selected mbtiType
     axios
       .get(`http://localhost:8080/personality-types/${mbtiType}/character`)
       .then((response) => {
@@ -18,7 +17,7 @@ function TypeDetails({ mbtiType }) {
         setError("Error fetching character details");
         setLoading(false);
       });
-  }, [mbtiType]); // Fetch data when mbtiType changes
+  }, [mbtiType]);
 
   if (loading) {
     return <div>Loading...</div>;
