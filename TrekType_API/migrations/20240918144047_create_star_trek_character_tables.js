@@ -6,8 +6,7 @@ export async function up(knex) {
   const exists = await knex.schema.hasTable("star_trek_characters");
   if (!exists) {
     return knex.schema.createTable("star_trek_characters", (table) => {
-      table.increments("id").primary();
-      table.integer("character_id").notNullable();
+      table.increments("character_id").primary();
       table.string("character_name").notNullable();
       table
         .integer("type_id")

@@ -4,8 +4,7 @@
  */
 export function up(knex) {
   return knex.schema.createTable("mbti_types", (table) => {
-    table.increments("id").primary();
-    table.integer("type_id").notNullable();
+    table.increments("type_id").primary();
     table.string("type_name").notNullable();
     table.text("description").notNullable();
     table.integer("character_id").notNullable();
