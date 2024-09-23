@@ -4,22 +4,69 @@ import HolodeckBackground from "../../components/HolodeckBackground/HolodeckBack
 import RadarGraph from "./../../components/RadarGraph/RadarGraph";
 import "./ResultPage.scss";
 
+// Define possible MBTI types with dominant functions
+const mbtiTypes = [
+  {
+    dominant_function: "Ne",
+    types: ["ENFP", "ENTP"],
+    auxiliary: { ENFP: "Fi", ENTP: "Ti" },
+  },
+  {
+    dominant_function: "Ni",
+    types: ["INFJ", "INTJ"],
+    auxiliary: { INFJ: "Fe", INTJ: "Te" },
+  },
+  {
+    dominant_function: "Se",
+    types: ["ESTP", "ESFP"],
+    auxiliary: { ESTP: "Ti", ESFP: "Fi" },
+  },
+  {
+    dominant_function: "Si",
+    types: ["ISTJ", "ISFJ"],
+    auxiliary: { ISTJ: "Te", ISFJ: "Fe" },
+  },
+  {
+    dominant_function: "Te",
+    types: ["ENTJ", "ESTJ"],
+    auxiliary: { ENTJ: "Ni", ESTJ: "Si" },
+  },
+  {
+    dominant_function: "Ti",
+    types: ["INTP", "ISTP"],
+    auxiliary: { INTP: "Ne", ISTP: "Se" },
+  },
+  {
+    dominant_function: "Fe",
+    types: ["ENFJ", "ESFJ"],
+    auxiliary: { ENFJ: "Ni", ESFJ: "Si" },
+  },
+  {
+    dominant_function: "Fi",
+    types: ["INFP", "ISFP"],
+    auxiliary: { INFP: "Ne", ISFP: "Se" },
+  },
+];
+const getMbtiType = (dominant, auxiliary) => {
+  const matchedType = mbtiTypes.find(
+    (type) => type.dominant_function === dominant
+  );
+
+  if (matchedType) {
+    const { types, auxiliary: auxFunctions } = matchedType;
+    if (auxFunctions[types[0]] === auxiliary) {
+      return types[0];
+    } else if (auxFunctions[types[1]] === auxiliary) {
+      return types[1];
+    }
+  }
+  return "Unknown";
+};
 export function ResultPage() {
   const location = useLocation();
-  const [PersonalityType, setPersonalityType] = useState(null); // State to store the fetched MBTI type data
+  const [PersonalityType, setPersonalityType] = useState(null);
 
-  const oppositePairs = {
-    Ti: "Te",
-    Te: "Ti",
-    Fi: "Fe",
-    Fe: "Fi",
-    Ni: "Ne",
-    Ne: "Ni",
-    Si: "Se",
-    Se: "Si",
-  };
-
-  // Initial MBTI function values from state or default
+  // Extract mbtiValues from location state (assuming they are passed here)
   const mbtiValues = location.state?.functionScores || {
     Ne: 0,
     Fi: 0,
@@ -30,69 +77,19 @@ export function ResultPage() {
     Te: 0,
     Si: 0,
   };
+  console.log(mbtiValues);
 
-  // Rank the functions by their scores
-  const rankedFunctions = Object.entries(mbtiValues).sort(
-    (a, b) => b[1] - a[1]
-  );
-  console.log(rankedFunctions);
-
-  // Keep track of selected functions to prevent selecting their opposites
-  const selectedFunctions = new Set();
-  const finalFunctions = [];
-
-  // Iterate over the ranked functions and select the top 4 distinct ones
-  for (const [func] of rankedFunctions) {
-    // Skip if the opposite function has already been selected
-    if (
-      !selectedFunctions.has(func) &&
-      !selectedFunctions.has(oppositePairs[func])
-    ) {
-      finalFunctions.push(func);
-      selectedFunctions.add(func);
-    }
-    // Stop once we've selected 4 functions
-    if (finalFunctions.length === 4) {
-      break;
-    }
-  }
-
-  // Destructure the final 4 functions into dominant, auxiliary, tertiary, and inferior
-  const [dominant, auxiliary, tertiary, inferior] = finalFunctions;
-  console.log(dominant, auxiliary, tertiary, inferior);
-  // POST the ranked MBTI functions to find the matching personality type
+  // Sort function values and calculate MBTI type
   useEffect(() => {
-    const findPersonalityType = async () => {
-      try {
-        const response = await fetch(
-          "http://localhost:8080/personality-types/findMBTIType",
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              dominant: dominant,
-              auxiliary: auxiliary,
-              tertiary: tertiary,
-              inferior: inferior,
-            }),
-          }
-        );
+    const sortedFunctions = Object.entries(mbtiValues).sort(
+      (a, b) => b[1] - a[1]
+    );
+    const dominantFunction = sortedFunctions[0][0];
+    const auxiliaryFunction = sortedFunctions[1][0];
 
-        if (!response.ok) {
-          throw new Error(`Error: ${response.statusText}`);
-        }
-
-        const data = await response.json();
-        setPersonalityType(data); // Set the returned MBTI type data
-      } catch (error) {
-        console.error("Error fetching MBTI personality type:", error);
-      }
-    };
-
-    findPersonalityType();
-  }, [dominant, auxiliary, tertiary, inferior]);
+    const mbtiType = getMbtiType(dominantFunction, auxiliaryFunction);
+    setPersonalityType(mbtiType);
+  }, [mbtiValues]);
 
   return (
     <div className="result">
@@ -114,18 +111,7 @@ export function ResultPage() {
           <div>
             {PersonalityType ? (
               <div className="mbti-details">
-                <h1>Your MBTI Type: {mbtiType.type_name}</h1>
-                <img src={mbtiType.image_url} alt={mbtiType.character_name} />
-                <p>{mbtiType.description}</p>
-                <p>
-                  <strong>Character:</strong> {mbtiType.character_name}
-                </p>
-                <p>
-                  <strong>Type Strength:</strong> {mbtiType.type_strength}
-                </p>
-                <p>
-                  <strong>Type Shortcoming:</strong> {mbtiType.type_shortcoming}
-                </p>
+                <h1>Your MBTI Type: {PersonalityType}</h1>
               </div>
             ) : (
               <h1>Loading your MBTI type...</h1>
