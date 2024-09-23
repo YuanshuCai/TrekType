@@ -3,8 +3,6 @@ import knex from "knex";
 dotenv.config();
 
 const { DB_HOST, DB_NAME, DB_USER, DB_PASSWORD } = process.env;
-
-// Ensure that all required environment variables are available
 if (!DB_HOST || !DB_NAME || !DB_USER || !DB_PASSWORD) {
   console.error(
     "Missing required environment variables for database connection."
@@ -38,7 +36,7 @@ export const getPersonalityTypes = (req, res) => {
 };
 
 export const getSinglePersonality = (req, res) => {
-  const id = parseInt(req.params.id, 10); //use parseInt to avoid potential SQL injection or string mismatch issues
+  const id = parseInt(req.params.id, 10);
 
   if (isNaN(id)) {
     return res.status(400).send("Invalid ID format");
@@ -61,46 +59,13 @@ export const getSinglePersonality = (req, res) => {
     });
 };
 
-export const findMBTIType = (req, res) => {
-  const { dominant, auxiliary, tertiary, inferior } = req.body; // Expect cognitive functions from the front-end
-
-  if (!dominant || !auxiliary || !tertiary || !inferior) {
-    return res.status(400).send("Cognitive functions missing in request");
-  }
-
-  // Query mbti_types table to find the matching cognitive functions
-  db.select("*")
-    .from("mbti_types")
-    .where({
-      dominant: dominant,
-      auxiliary: auxiliary,
-      tertiary: tertiary,
-      inferior: inferior,
-    })
-    .first() // Get the first matching type
-    .then((row) => {
-      if (row) {
-        res.status(200).json(row);
-      } else {
-        res.status(404).send("No matching MBTI type found");
-      }
-    })
-    .catch((error) => {
-      console.error(
-        "Error querying for MBTI type based on cognitive functions:",
-        error
-      );
-      res.status(500).send("Failed to find MBTI type");
-    });
-};
 export const getCharacterMBTI = (req, res) => {
-  const characterId = parseInt(req.params.id, 10); // Get the character's ID from the route
+  const characterId = parseInt(req.params.id, 10);
 
   if (isNaN(characterId)) {
     return res.status(400).send("Character ID must be a valid number");
   }
 
-  // Perform a SQL join between star_trek_characters and mbti_types based on type_id
   db.select(
     "star_trek_characters.character_name",
     "star_trek_characters.image_url",
@@ -113,12 +78,12 @@ export const getCharacterMBTI = (req, res) => {
       "star_trek_characters.type_id",
       "=",
       "mbti_types.type_id"
-    ) // Join based on type_id
-    .where("star_trek_characters.character_id", characterId) // Use character_id for filtering
-    .first() // Get the first matching result
+    )
+    .where("star_trek_characters.character_id", characterId)
+    .first()
     .then((row) => {
       if (row) {
-        res.status(200).json(row); // Return the character and MBTI info
+        res.status(200).json(row);
       } else {
         res.status(404).send("Character not found");
       }
@@ -144,7 +109,7 @@ export const getAllCharactersMBTI = (req, res) => {
     )
     .then((rows) => {
       if (rows.length > 0) {
-        res.status(200).json(rows); // Return all characters and their MBTI info
+        res.status(200).json(rows);
       } else {
         res.status(404).send("No characters found");
       }
@@ -158,12 +123,10 @@ export const getAllCharactersMBTI = (req, res) => {
 export const getPersonalityInfo = (req, res) => {
   const { type_name } = req.params;
 
-  // Check if type_name is valid
   if (!type_name || typeof type_name !== "string") {
     return res.status(400).send("Invalid MBTI type name format");
   }
 
-  // First, fetch the MBTI type by its type_name
   db.select("*")
     .from("mbti_types")
     .where({ type_name })
@@ -173,18 +136,16 @@ export const getPersonalityInfo = (req, res) => {
         return res.status(404).send("MBTI type not found");
       }
 
-      const { type_id } = mbtiType; // Ensure type_id is properly retrieved
+      const { type_id } = mbtiType;
 
-      // Now, fetch the associated character using the type_id
       db.select("*")
         .from("star_trek_characters")
-        .where({ type_id }) // Use the correct type_id from the mbtiType result
+        .where({ type_id })
         .first()
         .then((character) => {
-          // Combine the mbtiType and character into a single response
           res.status(200).json({
             mbtiType,
-            character: character || null, // If no character is found, return null
+            character: character || null,
           });
         })
         .catch((error) => {

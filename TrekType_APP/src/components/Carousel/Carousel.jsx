@@ -12,19 +12,19 @@ function Carousel({ setMBTIType }) {
       try {
         const response = await fetch(
           "http://localhost:8080/personality-types/all/mbti"
-        ); // Update with the correct API endpoint
+        );
         const data = await response.json();
-        setCarouselData(data); // Assuming data is an array of character objects
+        setCarouselData(data);
       } catch (error) {
         console.error("Error fetching carousel data:", error);
       }
     };
 
     fetchData();
-  }, []); // Fetch data only when the component mounts
+  }, []);
 
   const handleCardClick = (id) => {
-    setMBTIType(id); // Set the MBTI type and switch to TypeDetails
+    setMBTIType(id);
   };
 
   const options = { loop: true };
@@ -39,7 +39,7 @@ function Carousel({ setMBTIType }) {
               <div
                 className="embla__slide"
                 key={slide.character_id}
-                onClick={() => handleCardClick(slide.type_id)} // Set type and switch to details
+                onClick={() => handleCardClick(slide.type_id)}
               >
                 <div className="embla__slide__inner">
                   <div className="embla__slide__front">

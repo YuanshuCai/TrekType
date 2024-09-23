@@ -4,7 +4,6 @@ dotenv.config();
 
 const { DB_HOST, DB_NAME, DB_USER, DB_PASSWORD } = process.env;
 
-// Ensure that all required environment variables are available
 if (!DB_HOST || !DB_NAME || !DB_USER || !DB_PASSWORD) {
   console.error(
     "Missing required environment variables for database connection."

@@ -49,7 +49,7 @@ const RadarGraph = ({ Ne, Fi, Ti, Se, Ni, Fe, Te, Si }) => {
     scales: {
       r: {
         beginAtZero: true,
-        max: 30, // Assuming a scale from 0 to 100 for each aspect
+        max: 30,
         ticks: {
           stepSize: 20,
           color: "#444",

@@ -20,7 +20,6 @@ const MBTIQuestions = () => {
 
   const navigate = useNavigate();
 
-  // Fetch data from the API
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -43,7 +42,6 @@ const MBTIQuestions = () => {
     );
   }, [selectedAnswers, questions]);
 
-  // Function to handle button clicks
   const handleAnswerClick = (questionId, func, value) => {
     setSelectedAnswers((prev) => ({
       ...prev,
@@ -56,7 +54,6 @@ const MBTIQuestions = () => {
     }));
   };
 
-  // Handle form submission and navigate to the result page
   const handleSubmit = () => {
     if (!allAnswered) {
       setError("Please answer all questions before submitting.");

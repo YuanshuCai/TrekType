@@ -2,18 +2,16 @@ import React, { useState } from "react";
 import Carousel from "./../Carousel/Carousel";
 import CardsListMBTI from "./../CardsListMBTI/CardsListMBTI";
 import MBTIQuestions from "../MBTIQuestions/MBTIQuestions";
-import TypeDetails from "../TypeDetails/TypeDetails"; // Make sure this is imported correctly
+import TypeDetails from "../TypeDetails/TypeDetails";
 import "./Lcars.scss";
 
 const Lcars = () => {
-  // Manage the displayed component in Main
   const [mbtiType, setMBTIType] = useState(null);
   const [activeComponent, setActiveComponent] = useState("carousel");
 
-  // Set MBTI type and switch to typeDetail component
   const handleSetMBTIType = (typeId) => {
-    setMBTIType(typeId); // Update MBTI type
-    setActiveComponent("typeDetail"); // Switch to the typeDetail view
+    setMBTIType(typeId);
+    setActiveComponent("typeDetail");
   };
 
   const handleNavClick = (component) => {

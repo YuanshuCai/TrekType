@@ -15,5 +15,5 @@ export async function up(knex) {
  * @returns { Promise<void> }
  */
 export async function down(knex) {
-  return knex.schema.dropTable("mbti_questions"); // Drops the table if the migration is rolled back
+  return knex.schema.dropTable("mbti_questions");
 }

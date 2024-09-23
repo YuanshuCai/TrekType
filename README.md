@@ -137,4 +137,7 @@ Scope your project as a sprint. Break down the tasks that will need to be comple
 
 ## Future Implementations
 
-Your project will be marked based on what you committed to in the above document. Here, you can list any additional features you may complete after the MVP of your application is built, or if you have extra time before the Capstone due date.
+- Styling the pages
+- Styling the README in LCARS
+- Adding a modal that will share via WhatsApp, IG and email
+- Adding comments for each character (post method for character-controller)
