@@ -9,7 +9,6 @@ h2 {
   @include flexbox(column, space-between, center);
   position: relative;
   z-index: 1;
-  background-color: $black;
   padding: 1rem;
   &-img {
     min-width: 18.75rem;
