@@ -62,7 +62,6 @@ const MBTIQuestions = () => {
     setError("");
     navigate("/result", { state: { functionScores } });
   };
-  console.log(functionScores);
   return (
     <div className="mbti-questions">
       <h1>MBTI Questions</h1>
