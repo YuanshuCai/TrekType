@@ -43,6 +43,7 @@ const MBTIQuestions = () => {
   }, [selectedAnswers, questions]);
 
   const handleAnswerClick = (questionId, func, value) => {
+    // Update selected answers and function scores
     setSelectedAnswers((prev) => ({
       ...prev,
       [questionId]: value,
@@ -52,6 +53,20 @@ const MBTIQuestions = () => {
       ...prevScores,
       [func]: prevScores[func] + value - (selectedAnswers[questionId] || 0),
     }));
+
+    // Target the button group and apply gray-out effect
+    const buttonGroup = document.querySelectorAll(
+      `.button-group[data-question-id="${questionId}"] .answer-button`
+    );
+
+    buttonGroup.forEach((button) => {
+      // Gray out all unselected buttons
+      if (parseInt(button.dataset.value) !== value) {
+        button.classList.add("gray-out"); // Add gray-out class to unselected
+      } else {
+        button.classList.remove("gray-out"); // Keep selected button's original color
+      }
+    });
   };
 
   const handleSubmit = () => {
@@ -62,6 +77,7 @@ const MBTIQuestions = () => {
     setError("");
     navigate("/result", { state: { functionScores } });
   };
+
   return (
     <div className="mbti-questions">
       <h1>MBTI Questions</h1>
@@ -74,14 +90,15 @@ const MBTIQuestions = () => {
                 selectedAnswers[question.id] !== undefined ? "answered" : ""
               }`}
             >
-              <p>
+              <p className="question-text">
                 🚀{question.id} . {question.text}
               </p>
-              <div className="button-group">
+              <div className="button-group" data-question-id={question.id}>
                 <button
                   className={`answer-button ${
                     selectedAnswers[question.id] === -2 ? "selected" : ""
                   }`}
+                  data-value="-2"
                   onClick={() =>
                     handleAnswerClick(question.id, question.function, -2)
                   }
@@ -92,6 +109,7 @@ const MBTIQuestions = () => {
                   className={`answer-button ${
                     selectedAnswers[question.id] === -1 ? "selected" : ""
                   }`}
+                  data-value="-1"
                   onClick={() =>
                     handleAnswerClick(question.id, question.function, -1)
                   }
@@ -102,6 +120,7 @@ const MBTIQuestions = () => {
                   className={`answer-button ${
                     selectedAnswers[question.id] === 0 ? "selected" : ""
                   }`}
+                  data-value="0"
                   onClick={() =>
                     handleAnswerClick(question.id, question.function, 0)
                   }
@@ -112,6 +131,7 @@ const MBTIQuestions = () => {
                   className={`answer-button ${
                     selectedAnswers[question.id] === 1 ? "selected" : ""
                   }`}
+                  data-value="1"
                   onClick={() =>
                     handleAnswerClick(question.id, question.function, 1)
                   }
@@ -122,6 +142,7 @@ const MBTIQuestions = () => {
                   className={`answer-button ${
                     selectedAnswers[question.id] === 2 ? "selected" : ""
                   }`}
+                  data-value="2"
                   onClick={() =>
                     handleAnswerClick(question.id, question.function, 2)
                   }
