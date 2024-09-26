@@ -30,7 +30,9 @@ const Lcars = () => {
         return mbtiType ? (
           <TypeDetails mbtiType={mbtiType} />
         ) : (
-          <p>Please select an MBTI type.</p>
+          <p class="star-trek-message">
+            Select MBTI Type, Captain. Awaiting further input...
+          </p>
         );
       default:
         return <Carousel setMBTIType={handleSetMBTIType} />;

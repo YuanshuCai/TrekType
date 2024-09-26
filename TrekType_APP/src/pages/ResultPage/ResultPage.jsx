@@ -59,12 +59,17 @@ const getMbtiType = (dominant, auxiliary) => {
 
   if (matchedType) {
     const { types, auxiliary: auxFunctions } = matchedType;
+    // Check if auxiliary matches the first or second type
     if (auxFunctions[types[0]] === auxiliary) {
       return types[0];
     } else if (auxFunctions[types[1]] === auxiliary) {
       return types[1];
     }
+    // If no auxiliary match, default to the first type
+    return types[0];
   }
+
+  // Default to 'Unknown' if no matched type found (though this should rarely occur)
   return "Unknown";
 };
 
