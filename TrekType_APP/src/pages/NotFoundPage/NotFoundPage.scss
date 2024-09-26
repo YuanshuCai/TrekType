@@ -1,0 +1,40 @@
+@import "./../../assets/styles/global.scss";
+.not-found {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: url("/warp-background.jpg") center center/cover no-repeat;
+  color: #00ccff; // Star Trek style light blue color for text.
+
+  &__title {
+    font-family: "Oxanium", sans-serif;
+    font-size: 3rem;
+    text-align: center;
+    text-shadow: 0 0 15px rgba(0, 204, 255, 0.8);
+  }
+
+  &__text {
+    font-family: "Oxanium", sans-serif;
+    font-size: 1.5rem;
+    text-align: center;
+    margin: 20px;
+    text-shadow: 0 0 10px rgba(0, 204, 255, 0.8);
+  }
+
+  &__link {
+    font-family: "Oxanium", sans-serif;
+    color: #ffd700; // Gold for a Starfleet Command feel.
+    text-decoration: none;
+    font-size: 1.2rem;
+    padding: 10px 20px;
+    border: 2px solid #ffd700;
+    border-radius: 10px;
+    transition: background-color 0.3s ease-in-out;
+
+    &:hover {
+      background-color: rgba(255, 215, 0, 0.2);
+    }
+  }
+}

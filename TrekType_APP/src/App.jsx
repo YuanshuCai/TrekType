@@ -6,6 +6,7 @@ import MBTIPage from "./pages/MBTIPage/MBTIPage";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { HomePage } from "./pages/HomePage/HomePage";
 import ResultPage from "./pages/ResultPage/ResultPage";
+import NotFoundPage from "./pages/NotFoundPage/NotFoundPage";
 function App() {
   return (
     <>
@@ -18,6 +19,8 @@ function App() {
             <Route path="/" element={<HomePage />} />
             <Route path="/mbti/:id" element={<MBTIPage />} />
             <Route path="/result" element={<ResultPage />} />
+            <Route path="*" element={<NotFoundPage />} />{" "}
+            {/* Catch-all for 404 */}
           </Routes>
         </Router>
       </div>
